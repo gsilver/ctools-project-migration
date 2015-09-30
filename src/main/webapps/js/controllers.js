@@ -8,12 +8,12 @@ projectMigrationApp.controller('projectMigrationController', ['Projects', 'Polli
   $scope.migratingProjects = [];
   $scope.migratedProjects = [];
   $scope.migrations = {};
-  
+
   //server url
   var projectsUrl;
   // test data
   var projectsUrl;
-  if ($rootScope.stubs){
+  if ($rootScope.stubs) {
     projectsUrl = 'data/projects.json';
   } else {
     projectsUrl = 'someserverurl';
@@ -28,22 +28,38 @@ projectMigrationApp.controller('projectMigrationController', ['Projects', 'Polli
   });
 
   var migrationsUrl;
-  if ($rootScope.stubs){
+  if ($rootScope.stubs) {
     migrationsUrl = 'data/migrations.json';
   } else {
     migrationsUrl = 'someserverurl';
-  }  
+  }
   Projects.getProjects(migrationsUrl).then(function(result) {
     $scope.migratingProjects = result.data;
     $rootScope.status.migrations = moment().format('h:mm:ss');
     $scope.migratingProjectsShadow = result.data;
     $log.info(moment().format('h:mm:ss') + ' - migrating projects loaded');
     $log.info(' - - - - GET /migrating');
+    if (result.data.length) {
+      $log.warn('page load got one or more current migrations - will have to poll it');
+      PollingService.startPolling('migrationsOnPageLoad', migrationsUrl, 15000, function(result) {
+        if (result.data.length === 0) {
+          $log.warn('Nothing being migrated, polling /migrations one last time, reloading /migrated and then stopping polling');
+          PollingService.stopPolling('migrationsOnPageLoad');
+        }
+        $log.info(moment().format('h:mm:ss') + ' - projects being migrated polled  AFTER PAGE LOAD');
+        $log.info(' - - - - GET /migrations/');
+        $log.info(' - - - - repaint current migrations list');
+        $rootScope.status.migrations = moment().format('h:mm:ss');
+
+        $scope.migratingProjects = result.data;
+      });
+
+    }
 
   });
 
   var migratedUrl;
-  if ($rootScope.stubs){
+  if ($rootScope.stubs) {
     migratedUrl = 'data/migrated.json';
   } else {
     migratedUrl = 'someserverurl';
@@ -58,7 +74,7 @@ projectMigrationApp.controller('projectMigrationController', ['Projects', 'Polli
 
   $scope.getTools = function(projectId) {
     var projectUrl;
-    if ($rootScope.stubs){
+    if ($rootScope.stubs) {
       projectUrl = 'data/project_id.json';
     } else {
       projectUrl = 'someserverurl';
@@ -130,27 +146,30 @@ projectMigrationApp.controller('projectMigrationController', ['Projects', 'Polli
     };
 
     //3. POST above will return a migration ID - store this so that when it the related projectId dissapears from the 
-      //current migrations list the UI for the projects and the current migrations lists can be updated
+    //current migrations list the UI for the projects and the current migrations lists can be updated
     //4. poll /migrations - this would be in a timer
     var migrationsUrl;
-    if ($rootScope.stubs){
+    if ($rootScope.stubs) {
       migrationsUrl = 'data/migrations.json';
     } else {
       migrationsUrl = 'someserverurl';
-    }  
-    PollingService.startPolling('migrations' + projectId, migrationsUrl, 15000, function(result){
-      if(result.data.length === 0) {
+    }
+    
+    PollingService.stopPolling('migrationsOnPageLoad' + projectId);
+
+    PollingService.startPolling('migrationsAfterPageLoad', migrationsUrl, 15000, function(result) {
+      if (result.data.length === 0) {
         $log.warn('Nothing being migrated, polling /migrations one last time, reloading /migrated and then stopping polling');
-        PollingService.stopPolling('migrations' + projectId)
-      } 
+        PollingService.stopPolling('migrationsAfterPageLoad' + projectId);
+      }
       $log.info(moment().format('h:mm:ss') + ' - projects being migrated polled');
       $log.info(' - - - - GET /migrations/');
       $log.info(' - - - - repaint current migrations list');
       $rootScope.status.migrations = moment().format('h:mm:ss');
 
       $scope.migratingProjects = result.data;
-      
-      if(!angular.equals($scope.migratingProjects, $scope.migratingProjectsShadow)){
+
+      if (!angular.equals($scope.migratingProjects, $scope.migratingProjectsShadow)) {
         Projects.getProjects(migratedUrl).then(function(result) {
           $scope.migratedProjects = result.data;
           $rootScope.status.migrated = moment().format('h:mm:ss');
