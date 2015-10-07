@@ -1,5 +1,5 @@
 'use strict';
-/* global  projectMigrationApp, angular, _, moment*/
+/* global  projectMigrationApp, angular, _, moment, $*/
 
 /* TERMS CONTROLLER */
 projectMigrationApp.controller('projectMigrationController', ['Projects', 'Migrations', 'Migrated', 'PollingService', '$rootScope', '$scope', '$log', function(Projects, Migrations, Migrated, PollingService, $rootScope, $scope, $log) {
@@ -23,8 +23,23 @@ projectMigrationApp.controller('projectMigrationController', ['Projects', 'Migra
   var migrationsUrl = $rootScope.urls.migrationsUrl;
 
   Migrations.getMigrations(migrationsUrl).then(function(result) {
+    $scope.migratingHash = [];
     $scope.migratingProjects = result.data;
-    $scope.migratingProjectsShadow = result.data;    
+
+    $.each($scope.migratingProjects, function( index, value ) {
+      $scope.migratingHash.push(value.site_id);
+      // find the correlate in project list
+      var targetProjPos = $scope.sourceProjects.indexOf(_.findWhere($scope.sourceProjects, {
+        entityId: value.site_id 
+      }));
+      // change status of this project in project list as migrating
+      if(targetProjPos !==-1){
+        $scope.sourceProjects[targetProjPos].statusMigrating = true;
+      }
+    });
+
+    
+    $scope.migratingProjectsShadow = result.data;
     $rootScope.status.migrations = moment().format('h:mm:ss');
     $log.info(moment().format('h:mm:ss') + ' - migrating projects loaded');
     $log.info(' - - - - GET /migrating');
@@ -32,9 +47,30 @@ projectMigrationApp.controller('projectMigrationController', ['Projects', 'Migra
       $log.warn('page load got one or more current migrations - will have to poll it every ' + $rootScope.pollInterval/1000 + ' seconds');
       
       PollingService.startPolling('migrationsOnPageLoad', migrationsUrl, $rootScope.pollInterval, function(result) {
-        $scope.migratingProjects = result.data;
-        
+        $scope.migratingProjects = result.data;        
+
         if(!angular.equals($scope.migratingProjects, $scope.migratingProjectsShadow)) {
+          //update status of projects in the project panel
+          $.each($scope.migratingHash, function( index, value ) {
+            var targetMigratingPos = $scope.migratingProjects.indexOf(_.findWhere($scope.migratingProjects, {
+              site_id: value
+            }));          
+            if(targetMigratingPos === -1){
+              var targetProjPos = $scope.sourceProjects.indexOf(_.findWhere($scope.sourceProjects, {
+                entityId: value 
+              }));
+              $scope.sourceProjects[targetProjPos].statusMigrating = false;
+            }
+          });
+
+          $scope.migratingHash = [];
+    
+          $.each($scope.migratingProjects, function( index, value ) {
+            $scope.migratingHash.push(value.site_id);
+          });
+
+
+          // update migrated panel
           Migrated.getMigrated(migratedUrl).then(function(result) {
             $scope.migratedProjects = result.data;
             $rootScope.status.migrated = moment().format('h:mm:ss');
@@ -59,6 +95,18 @@ projectMigrationApp.controller('projectMigrationController', ['Projects', 'Migra
 
   Migrated.getMigrated(migratedUrl).then(function(result) {
     $scope.migratedProjects = result.data;
+
+    $.each($scope.migratedProjects, function( index, value ) {
+      // find the correlate in project list
+      var targetProjPos = $scope.sourceProjects.indexOf(_.findWhere($scope.sourceProjects, {
+        entityId: value.site_id 
+      }));
+      // change status of this project in project list as migrated
+      if(targetProjPos !==-1){
+        $scope.sourceProjects[targetProjPos].statusMigrated = true;
+      }
+    });
+
     $rootScope.status.migrated = moment().format('h:mm:ss');
     $log.info(moment().format('h:mm:ss') + ' - migrated projects loaded');
     $log.info(' - - - - GET /migrated');

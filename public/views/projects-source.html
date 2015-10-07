@@ -3,6 +3,7 @@
 		<a ng-click="getTools(project.entityId)" role="button" data-toggle="collapse" href="#collapse{{project.entityId}}" aria-expanded="false" aria-controls="collapse{{project.entityId}}">
 	  	{{project.entityTitle}}
 		</a>
+		<small ng-if="project.statusMigrated"> Migrated</small><small ng-if="project.statusMigrating"> Migrating</small>
 	</h4>	
 	<div class="clearfix"></div>
 	<div class="collapse" id="collapse{{project.entityId}}">

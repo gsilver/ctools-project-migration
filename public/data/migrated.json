@@ -1,9 +1,9 @@
 [
     {
-        "site_id": "site_id1",
-        "site_name": "site-title 1",
-        "tool_id": "some_guid",
-        "tool_name": "Resources site 1",
+        "site_id": "14c6a80a-d4b9-41a6-a446-c6954010a88a",
+        "site_name": "1001 101 1 W14",
+        "tool_id": "bf5ebb7c-6012-4e3e-93ef-00d66d986891",
+        "tool_name": "Resources site 1001 101 1 W14",
         "migration_id": "some_guid",
         "start": "unix_timestamp",
         "end": "unix-timestamp",
@@ -12,7 +12,7 @@
         "destination_url": "URL"
     },
     {
-        "site_id": "site_id2",
+        "site_id": "bogus",
         "site_name": "site-title 2",
         "tool_id": "some_guid",
         "tool_name": "Resources site 2",
@@ -24,7 +24,7 @@
         "destination_url": "URL"
     },
     {
-        "site_id": "site_id2",
+        "site_id": "bogus",
         "site_name": "site-title 2",
         "tool_id": "some_guid",
         "tool_name": "Ann site 2",
@@ -36,19 +36,7 @@
         "destination_url": "URL"
     },
     {
-        "site_id": "site_id3",
-        "site_name": "site-title 3",
-        "tool_id": "some_guid",
-        "tool_name": "Resources site 3",
-        "migration_id": "some_guid",
-        "start": "unix_timestamp",
-        "end": "unix-timestamp",
-        "migrated_by": "someone",
-        "destination_type": "Box",
-        "destination_url": "URL"
-    },
-    {
-        "site_id": "site_id2",
+        "site_id": "bogus",
         "site_name": "site-title 2",
         "tool_id": "some_guid",
         "tool_name": "Email site 2",
@@ -60,7 +48,7 @@
         "destination_url": "URL"
     },
     {
-        "site_id": "site_id2",
+        "site_id": "bogus",
         "site_name": "site-title 2",
         "tool_id": "some_guid",
         "tool_name": "Bang site 2",
@@ -72,7 +60,7 @@
         "destination_url": "URL"
     },
     {
-        "site_id": "site_id2",
+        "site_id": "bogus",
         "site_name": "site-title 2",
         "tool_id": "some_guid",
         "tool_name": "Bong site 2",
@@ -84,10 +72,22 @@
         "destination_url": "URL"
     },
     {
-        "site_id": "site_id3",
-        "site_name": "site-title 3",
+        "site_id": "bogus",
+        "site_name": "site title 3",
         "tool_id": "some_guid",
         "tool_name": "Bang site 3",
+        "migration_id": "some_guid",
+        "start": "unix_timestamp",
+        "end": "unix-timestamp",
+        "migrated_by": "someone",
+        "destination_type": "Box",
+        "destination_url": "URL"
+    },
+    {
+        "site_id": "bogus",
+        "site_name": "site-title 3",
+        "tool_id": "some_guid",
+        "tool_name": "Resources site 3",
         "migration_id": "some_guid",
         "start": "unix_timestamp",
         "end": "unix-timestamp",
