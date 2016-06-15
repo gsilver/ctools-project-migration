@@ -132,6 +132,10 @@ h3.panel-title small {
   color:red
 }
 
+.table th {
+  font-weight:normal
+}
+
 @media (max-width: 480px) {
 	.panel-heading {
 		background-color: #777 !important;
