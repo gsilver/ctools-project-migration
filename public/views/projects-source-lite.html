@@ -80,7 +80,8 @@
 					<div class="row noFocus"
 						id="toolSelDest{{project.tool_id}}" tabindex="-1">
 						<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-              <a href="" ng-click="project.selected=true;startMigration(project.site_id, project.site_name,'zip')">Download {{project.tool_name}} as a zip file</a>
+              <a ng-show="project.tool_type==='sakai.resources'" href="" ng-click="project.selected=true;startMigration(project.site_id, project.site_name,'zip')">Download {{project.tool_name}} as a zip file</a>
+              <a ng-show="project.tool_type==='sakai.mailbox'" href="" ng-click="project.selected=true;startMigration(project.site_id, project.site_name,'zip')">Download {{project.tool_name}} as a zipped PDF or text  file</a>
 						</div>
 					</div>
 				</div>
