@@ -5,35 +5,38 @@ projectMigrationApp.controller('projectMigrationBatchController', ['$rootScope',
   function($rootScope, $scope, $log, $q, $window, $timeout, BulkUpload) {
 
     $scope.bulkUpload = function() {
-      //$log.info($scope.upload.name);
-      if(!$scope.bulkUploadFile || !$scope.upload.name){
+
+      if(!$scope.bulkUploadFile || !$scope.upload.name || !$scope.uploadSource){
         $('#bulkUploadFileContainer').find('.form-group').addClass("has-error");
       }
       else {
-        var file = $scope.bulkUploadFile;
-        var name = $scope.upload.name;
-        $log.info(name);
-        $scope.bulkUploadInProcess = true;
-        var bulkUploadUrl = $rootScope.urls.bulkUploadPostUrl;
-        BulkUpload.bulkUpload(file, name, bulkUploadUrl).then(function(response) {
-          $scope.bulkUploadInProcess = false;
-          $log.info('hhh after ' + bulkUploadUrl);
-          // Reset form
-          $scope.upload.name ='';
-          $scope.bulkUploadFile ='';
-          $('#upload')[0].reset();
-          //notify user
+        if($scope.uploadSource==='resources'){
+          var file = $scope.bulkUploadFile;
+          var name = $scope.upload.name;
+          $log.info(name);
+          $scope.bulkUploadInProcess = true;
+          var bulkUploadUrl = $rootScope.urls.bulkUploadPostUrl;
+          BulkUpload.bulkUpload(file, name, bulkUploadUrl).then(function(response) {
+            $scope.bulkUploadInProcess = false;
+            $log.info('hhh after ' + bulkUploadUrl);
+            // Reset form
+            $scope.upload.name ='';
+            $scope.bulkUploadFile ='';
+            $('#upload')[0].reset();
+            //notify user
 
-          $scope.uploadStarted = true;
-          $scope.uploadStartedMessage=response;
-          $timeout(function() {
-            $scope.uploadStarted = false;
-            $('a[href="#ongoing"]').trigger('click');
-            $scope.getOngoingList();
-          }, 3000);
-
-
-        });
+            $scope.uploadStarted = true;
+            $scope.uploadStartedMessage=response;
+            $timeout(function() {
+              $scope.uploadStarted = false;
+              $('a[href="#ongoing"]').trigger('click');
+              $scope.getOngoingList();
+            }, 3000);
+          });
+        }
+        else {
+          // proceed with email things
+        }
       }
     };
 
