@@ -143,6 +143,28 @@ var transformMigrated = function(result) {
 
 };
 
+var prepareMembership = function(membership) {
+  var role='';
+  var gg_format = [];
+  var mc_format = {'owners':[], 'members':[], 'moderators':[]};
+  var readable_format =[];
+  _.each(membership.data.membership_collection, function(member){
+    //console.log(member.userEmail);
+    gg_format.push(member.userEid);
+    readable_format.push({'userId':member.userEid, 'memberRole':member.memberRole, 'userSortName':member.userSortName, 'lastLoginTime':member.lastLoginTime});
+    // will need to collate by role
+    if(member.memberRole ==='Owner'){
+      mc_format.owners.push(member.userEid);
+    } else if(member.memberRole ==='Member'){
+      mc_format.members.push(member.userEid);
+    } else {
+      mc_format.members.push(member.userEid);
+    }
+  });
+  membership = {'gg_format':gg_format, 'mc_format':mc_format, 'readable_format':readable_format};
+  return membership;
+};
+
 var errorDisplay = function(url, status, message){
   alert('Asked for: ' + url + '\n\nGot a: ' + status +'\n\nSo: ' + message);
 };
