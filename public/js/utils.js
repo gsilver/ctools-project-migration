@@ -148,10 +148,10 @@ var prepareMembership = function(membership) {
   var gg_format = [];
   var mc_format = {'owners':[], 'members':[], 'moderators':[]};
   var readable_format =[];
+
   _.each(membership.data.membership_collection, function(member){
-    //console.log(member.userEmail);
     gg_format.push(member.userEid);
-    readable_format.push({'userId':member.userEid, 'memberRole':member.memberRole, 'userSortName':member.userSortName, 'lastLoginTime':member.lastLoginTime});
+    readable_format.push({'userId':member.userEid, 'memberRole':member.memberRole, 'userSortName':member.userSortName});
     // will need to collate by role
     if(member.memberRole ==='Owner'){
       mc_format.owners.push(member.userEid);

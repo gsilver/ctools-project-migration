@@ -144,15 +144,13 @@
                   <th scope="col">Name</th>
                   <th scope="col">Role</th>
                   <th scope="col">Id</th>
-                  <th scope="col">Last visit</th>
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="member in membership.data.readable_format">
+                <tr ng-repeat="member in membership.data.readable_format |orderBy:userSortName">
                   <td scope="row">{{member.userSortName}}</td>
                   <td>{{member.memberRole}}</td>
                   <td>{{member.userId}}</td>
-                  <td>{{member.lastLoginTime  | date:'MM/dd/yy hh:mm a'}}</td>
                 </tr>
               </tbody>
             </table>
