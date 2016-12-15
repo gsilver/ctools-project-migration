@@ -1,7 +1,7 @@
 {"entityPrefix": "membership", "membership_collection": [
 {
   "id": "gonzalo.silverio@gmail.com::site:50ed59a8-7454-42f6-a05b-0b4a1677243a",
-  "lastLoginTime": 1481740159175,
+  "lastLoginTime": 1481827564609,
   "locationReference": "\/site\/50ed59a8-7454-42f6-a05b-0b4a1677243a",
   "memberRole": "Organizer",
   "userDisplayId": "gonzalo.silverio@gmail.com",
@@ -18,7 +18,7 @@
   "entityTitle": "CTools Administrator"
 },{
   "id": "95267254-460c-489f-890a-15443cd68ff0::site:50ed59a8-7454-42f6-a05b-0b4a1677243a",
-  "lastLoginTime": 1481740159175,
+  "lastLoginTime": 1481827564605,
   "locationReference": "\/site\/50ed59a8-7454-42f6-a05b-0b4a1677243a",
   "memberRole": "Member",
   "userDisplayId": "dovek",
@@ -35,7 +35,7 @@
   "entityTitle": "Kyle Dove"
 },{
   "id": "09d089e0-ba8b-45f8-b749-c1567068c159::site:50ed59a8-7454-42f6-a05b-0b4a1677243a",
-  "lastLoginTime": 1481740159175,
+  "lastLoginTime": 1481827564606,
   "locationReference": "\/site\/50ed59a8-7454-42f6-a05b-0b4a1677243a",
   "memberRole": "Owner",
   "userDisplayId": "pushyami",
@@ -52,7 +52,7 @@
   "entityTitle": "Pushyami Gundala"
 },{
   "id": "dlhaines::site:50ed59a8-7454-42f6-a05b-0b4a1677243a",
-  "lastLoginTime": 1481740159175,
+  "lastLoginTime": 1481827564607,
   "locationReference": "\/site\/50ed59a8-7454-42f6-a05b-0b4a1677243a",
   "memberRole": "Owner",
   "userDisplayId": "dlhaines",
@@ -69,7 +69,7 @@
   "entityTitle": "David Haines"
 },{
   "id": "zqian::site:50ed59a8-7454-42f6-a05b-0b4a1677243a",
-  "lastLoginTime": 1481740159175,
+  "lastLoginTime": 1481827564604,
   "locationReference": "\/site\/50ed59a8-7454-42f6-a05b-0b4a1677243a",
   "memberRole": "Owner",
   "userDisplayId": "zqian",
@@ -86,9 +86,9 @@
   "entityTitle": "Zhen Qian"
 },{
   "id": "gsilver::site:50ed59a8-7454-42f6-a05b-0b4a1677243a",
-  "lastLoginTime": 1481740159175,
+  "lastLoginTime": 1481827564606,
   "locationReference": "\/site\/50ed59a8-7454-42f6-a05b-0b4a1677243a",
-  "memberRole": "Owner",
+  "memberRole": "Observer",
   "userDisplayId": "gsilver",
   "userDisplayName": "Gonzalo Silverio",
   "userEid": "gsilver",

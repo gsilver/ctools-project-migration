@@ -152,11 +152,11 @@ var prepareMembership = function(membership) {
   _.each(membership.data.membership_collection, function(member){
     gg_format.push(member.userEid);
     readable_format.push({'userId':member.userEid, 'memberRole':member.memberRole, 'userSortName':member.userSortName});
-    // will need to collate by role
+    // collating by role for MComm format
     if(member.memberRole ==='Owner'){
       mc_format.owners.push(member.userEid);
-    } else if(member.memberRole ==='Member'){
-      mc_format.members.push(member.userEid);
+    } else if(member.memberRole ==='Organizer'){
+      mc_format.moderators.push(member.userEid);
     } else {
       mc_format.members.push(member.userEid);
     }
