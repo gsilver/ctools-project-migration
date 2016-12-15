@@ -121,9 +121,15 @@
           <div class="well">
             <span ng-repeat="member in membership.data.gg_format">{{member}}<span ng-show="!$last">, </span></span>
           </div>
-          <h4>MCommunity format</h4>
+          <h4>MCommunity format <small>(users categorized by role)</small> </h4>
           <div class="well">
             <div class="" ng-show="membership.data.mc_format.owners.length">
+              <a href="#" class="btn btn-sm btn-link pull-right"
+                 tabindex="0"
+                data-trigger="focus"
+                data-placement="left" data-toggle="popover" title="Info on roles"
+                data-content="This would show role mapping information.<br> Can <strong>contain</strong> markup.">Info
+              </a>
               <h5>
                 Owners
               </h5>
@@ -135,8 +141,9 @@
               </h5>
               <span ng-repeat="member in membership.data.mc_format.members">{{member}}<span ng-show="!$last">, </span></span>
             </div>
+
           </div>
-          <h4>Readable format</h4>
+          <h4>Readable format <small>(information from CTools)</small></h4>
           <div class="well">
             <table class="table">
               <thead>
