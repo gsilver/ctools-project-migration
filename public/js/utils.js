@@ -146,7 +146,7 @@ var transformMigrated = function(result) {
 var prepareMembership = function(membership) {
   var role='';
   var gg_format = [];
-  var mc_format = {'owners':[], 'members':[], 'moderators':[]};
+  var mc_format = {'owners':[], 'members':[]};
   var readable_format =[];
 
   _.each(membership.data.membership_collection, function(member){
@@ -155,8 +155,6 @@ var prepareMembership = function(membership) {
     // collating by role for MComm format
     if(member.memberRole ==='Owner'){
       mc_format.owners.push(member.userEid);
-    } else if(member.memberRole ==='Organizer'){
-      mc_format.moderators.push(member.userEid);
     } else {
       mc_format.members.push(member.userEid);
     }

@@ -127,21 +127,14 @@
               <a href="#" class="btn btn-sm btn-link pull-right"
                  tabindex="0"
                 data-trigger="focus"
-                data-placement="left" data-toggle="popover" title="CTools > MComm roles"
-                data-content="Owner > Owner<br>Organizer > Moderator<br>Member or Observer > Member">Info
+                data-placement="left" data-toggle="popover" title="CTools to MComm roles"
+                data-content="CTools Owner > MComm Owner<hr>All others are MComm group members">Info
               </a>
               <h5>
                 Owners
               </h5>
               <span ng-repeat="owner in membership.data.mc_format.owners">{{owner}}<span ng-show="!$last">, </span></span>
             </div>
-            <div class="" ng-show="membership.data.mc_format.moderators.length">
-              <h5>
-                Moderators
-              </h5>
-              <span ng-repeat="moderator in membership.data.mc_format.moderators">{{moderator}}<span ng-show="!$last">, </span></span>
-            </div>
-
             <div class="" ng-show="membership.data.mc_format.members.length">
               <h5>
                 Members
