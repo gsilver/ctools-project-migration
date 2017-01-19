@@ -16,6 +16,13 @@ projectMigrationApp.controller('projectMigrationController', ['Projects','Projec
     } else {
       $scope.migratingActive = true;
     }
+
+    var pingCToolsUrl = "data/ping-ctools.json";
+    Projects.pingDependency(pingCToolsUrl).then(function(result) {
+      if(result.data.status ==='down'){
+        $scope.ctoolsDown = true;
+      }
+    });
     // whether the current user is a member of the admin group or n0t
     var checkIsAdminUserUrl = $rootScope.urls.checkIsAdminUser;
     Projects.checkIsAdminUser(checkIsAdminUserUrl + window.location.search).then(function(result) {

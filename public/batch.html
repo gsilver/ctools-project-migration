@@ -48,7 +48,13 @@
 
 	<div class="container-fluid" ng-controller="projectMigrationBatchController" ng-show="isAdminUser">
     <div class="row">
-      <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 topMenu">
+      <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+        <div class="no-items alert alert-danger" ng-show="ctoolsDown" style="display:inline-block">
+          ⚠️ CTools is not available at the moment.
+        </div>
+        <div class="no-items alert alert-danger" ng-show="boxDown"  style="display:inline-block">
+          ⚠️ Box is not available at the moment.
+        </div>
       </div>
       <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 topMenu">
         <a ng-show="!boxAuthorized" class="btn btn-primary" href=""
