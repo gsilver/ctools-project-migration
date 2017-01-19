@@ -19,7 +19,7 @@ projectMigrationApp.controller('projectMigrationController', ['Projects','Projec
 
     var pingCToolsUrl = "data/ping-ctools.json";
     Projects.pingDependency(pingCToolsUrl).then(function(result) {
-      if(result.data.status ==='down'){
+      if(result.data.status ==='DOWN'){
         $scope.ctoolsDown = true;
       }
     });

@@ -9,13 +9,13 @@ projectMigrationApp.controller('projectMigrationBatchController', ['$rootScope',
 
     var pingCToolsUrl = "data/ping-ctools.json";
     Projects.pingDependency(pingCToolsUrl).then(function(result) {
-      if(result.data.status ==='down'){
+      if(result.data.status ==='DOWN'){
         $scope.ctoolsDown = true;
       }
     });
     var pingBoxUrl = "data/ping-box.json";
     Projects.pingDependency(pingBoxUrl).then(function(result) {
-      if(result.data.status ==='down'){
+      if(result.data.status ==='DOWN'){
         $scope.boxDown = true;
       }
     });

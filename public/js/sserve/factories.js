@@ -103,13 +103,18 @@ projectMigrationApp.factory('Projects', function($http) {
 				cache : false
 			}).then(function success(result) {
 				// filter everything course sites
+        if(result.data.site_collection){
+  				var sourceProjects = result.data.site_collection;
+  				// use a transform to make project data mirror data in
+  				// migrations and migrated
+  				var siteList = transformProjects(sourceProjects);
 
-				var sourceProjects = result.data.site_collection;
-				// use a transform to make project data mirror data in
-				// migrations and migrated
-				var siteList = transformProjects(sourceProjects);
 				// returned presorted by site type (by code - mwsp=1, gt=2, p=3) and then alphanum
-				return _.chain(siteList).sortBy('title').sortBy('type_code').value();
+				  return _.chain(siteList).sortBy('title').sortBy('type_code').value();
+        }
+        else {
+          return [];
+        }
 			}, function error(result) {
 				errorDisplay(url, result.status, 'Unable to get projects');
 				result.errors.failure = true;
