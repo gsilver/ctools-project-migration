@@ -7,7 +7,7 @@ projectMigrationApp.run(function($rootScope) {
   //for any init values needed
   $rootScope.server = '';
   $rootScope.user = {};
-  $rootScope.pollInterval = 15000;
+  $rootScope.pollInterval = 30000;
   $rootScope.stubs = false ;
   if ($rootScope.stubs) {
     $rootScope.urls = {

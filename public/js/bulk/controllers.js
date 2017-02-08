@@ -1,8 +1,9 @@
 'use strict';
 /* global projectMigrationApp, validateBulkRequest, $, moment, document*/
 
-projectMigrationApp.controller('projectMigrationBatchController', ['$rootScope', '$scope', '$log', '$q', '$window', '$timeout', 'BulkUpload', 'Projects',
-  function($rootScope, $scope, $log, $q, $window, $timeout, BulkUpload, Projects) {
+projectMigrationApp.controller('projectMigrationBatchController', ['$rootScope', '$scope', '$log', '$q', '$window', '$timeout', 'BulkUpload', 'Projects','PollingService',
+  function($rootScope, $scope, $log, $q, $window, $timeout, BulkUpload, Projects, PollingService) {
+
     $scope.boxAuthorized = false;
     // set default to resources and hide the radio group
     $scope.uploadSource = 'resources';
@@ -19,6 +20,21 @@ projectMigrationApp.controller('projectMigrationBatchController', ['$rootScope',
         $scope.boxDown = true;
       }
     });
+
+    var poll = function(pollName, url, interval,targetPanel) {
+      PollingService.startPolling(pollName,url,$rootScope.pollInterval,function(result) {
+        if(result.data.status !=='OK'){
+          $scope.boxAuthorized = false;
+        }
+        else {
+          $scope.boxAuthorized = true;
+        }
+        $log.info(moment().format('h:mm:ss') + ' polled: ' + pollName + ' for ' + url);
+
+      });
+    };
+
+    poll('pollBoxToken','data/ping-box-token.json','$rootScope.pollInterval','');
 
     // whether the current user is a member of the admin group or n0t
     var checkIsAdminUserUrl = $rootScope.urls.isAdminCheckUrl;
